@@ -30,11 +30,10 @@ def mark_on_map(state_reply):
     state_object.write(state_reply, move=False, align='center', font=('Arial', 8, 'normal'))
 
 
-
-
 # while loop, keep the game running until the 50 state finished
 while game_is_on:
-    ans_state = screen.textinput(title="Guess the State", prompt="What's another state's name?").title()
+    ans_state = screen.textinput(title=f"{len(right_ans_list)}/50 Guess the State",
+                                 prompt="What's another state's name?").title()
     # Convert ans_state to Title case
     state_list = us_states_df["state"].tolist()
 
@@ -48,10 +47,11 @@ while game_is_on:
         mark_on_map(ans_state)
 
 
-
 # if not show empty textinput bar again
 # if yes and no repeat, score +1 and show the state on the map
 # update the score on the screen text input title
+
+
 
 # Delet this line?
 screen.exitonclick()
