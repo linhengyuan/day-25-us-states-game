@@ -11,17 +11,15 @@ turtle.shape(image)
 # Ans/score storage
 right_ans_list = []
 your_score = 0
-game_is_on = True
 
 # Fetch data from csv
 us_states_df = pandas.read_csv("50_states.csv")
 
 # act function: mark on the map, fetch x and y-axis number
 def mark_on_map(state_reply):
-    row_df = us_states_df[us_states_df.state == state_reply]
-    row_list = row_df.values.tolist()[0]
-    x_cor = row_list[1]
-    y_cor = row_list[2]
+    state_data = us_states_df[us_states_df.state == state_reply]
+    x_cor = state_data.x.item()
+    y_cor = state_data.y.item()
 
     state_object = turtle.Turtle()
     state_object.penup()
@@ -31,27 +29,33 @@ def mark_on_map(state_reply):
 
 
 # while loop, keep the game running until the 50 state finished
-while game_is_on:
+while len(right_ans_list) < 50:
     ans_state = screen.textinput(title=f"{len(right_ans_list)}/50 Guess the State",
                                  prompt="What's another state's name?").title()
     # Convert ans_state to Title case
     state_list = us_states_df["state"].tolist()
 
+    if ans_state.title() == "Exit":
+        missing_states = us_states_df["state"].tolist()
+        for i in right_ans_list:
+            missing_states.remove(i)
+        new_df = pandas.DataFrame(missing_states)
+        new_df.to_csv("state_to_learn.csv")
+
+        break
+
     # Check guess, loop through 50 state
     if ans_state.title() in state_list and ans_state.title() not in right_ans_list:
         right_ans_list.append(ans_state)
         your_score += 1
-        print(your_score)
-
         # Mark the state on the map
         mark_on_map(ans_state)
 
+# states to learn.csv
 
-# if not show empty textinput bar again
-# if yes and no repeat, score +1 and show the state on the map
-# update the score on the screen text input title
-
-
-
-# Delet this line?
-screen.exitonclick()
+# for ans in us_states_df[us_states_df.state == state_reply]:
+#     if ans not in
+#
+# data_dict =
+#
+# df = pandas.DataFrame(data_dict)
