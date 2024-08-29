@@ -51,6 +51,7 @@ while len(right_ans_list) < 50:
         # Mark the state on the map
         mark_on_map(ans_state)
 
+
 # states to learn.csv
 
 # for ans in us_states_df[us_states_df.state == state_reply]:
