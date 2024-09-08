@@ -36,9 +36,11 @@ while len(right_ans_list) < 50:
     state_list = us_states_df["state"].tolist()
 
     if ans_state.title() == "Exit":
-        missing_states = us_states_df["state"].tolist()
-        for i in right_ans_list:
-            missing_states.remove(i)
+        missing_states = [state for state in state_list if state not in right_ans_list]
+
+        # missing_states = us_states_df["state"].tolist()
+        # for i in right_ans_list:
+        #     missing_states.remove(i)
         new_df = pandas.DataFrame(missing_states)
         new_df.to_csv("state_to_learn.csv")
 
